@@ -1,0 +1,12 @@
+# Secrets / local config — never commit
+.env
+
+# Downloaded adapters
+loras/
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs
+*.log

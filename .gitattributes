@@ -1,0 +1,4 @@
+# Force LF on everything that runs/ships in the Linux container, so a Windows
+# checkout doesn't inject CRLF (which breaks shell shebangs).
+* text=auto eol=lf
+*.sh text eol=lf

@@ -1,0 +1,8 @@
+# Dependencies for the LoRA manager sidecar.
+# vLLM itself ships in the base image (vllm/vllm-openai) and is NOT listed here.
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27
+boto3>=1.34
+pydantic>=2.7
+pydantic-settings>=2.3

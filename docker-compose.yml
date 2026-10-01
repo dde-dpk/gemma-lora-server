@@ -1,0 +1,37 @@
+# Local / single-host run with GPU. Requires the NVIDIA Container Toolkit.
+services:
+  gemma-lora:
+    build:
+      context: .
+      args:
+        VLLM_TAG: ${VLLM_TAG:-latest}
+    image: gemma-lora-server:latest
+    ports:
+      - "8000:8000"   # vLLM OpenAI API (inference)
+      - "8001:8001"   # LoRA manager (load/unload)
+    environment:
+      MODEL_ID: ${MODEL_ID:-google/gemma-3-4b-it}
+      HF_TOKEN: ${HF_TOKEN:-}
+      LORA_S3_PREFIX: ${LORA_S3_PREFIX:-}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      GPU_MEMORY_UTILIZATION: ${GPU_MEMORY_UTILIZATION:-0.90}
+      MAX_MODEL_LEN: ${MAX_MODEL_LEN:-8192}
+      MAX_LORA_RANK: ${MAX_LORA_RANK:-32}
+    volumes:
+      - hf-cache:/root/.cache/huggingface   # persist downloaded base model
+      - lora-cache:/loras                   # persist downloaded adapters
+      # For LOCAL dev only. On a g5.xlarge, use an EC2 instance role instead and
+      # delete this line (boto3 reads credentials from instance metadata).
+      - ${HOME}/.aws:/root/.aws:ro
+    shm_size: "8gb"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  hf-cache:
+  lora-cache:
