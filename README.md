@@ -1,3 +1,5 @@
 # gemma-lora-server
 
-Token: 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
+Read token: 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
+Write token: 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
+
