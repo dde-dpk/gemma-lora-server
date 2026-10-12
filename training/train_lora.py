@@ -109,7 +109,7 @@ def main():
         logging_steps=5,
         gradient_checkpointing=True,
         gradient_checkpointing_kwargs={"use_reentrant": False},
-        max_seq_length=args.max_seq_len,
+        max_length=args.max_seq_len,  # TRL >=0.20 renamed max_seq_length -> max_length
         dataset_text_field="text",
         save_strategy="epoch",
         report_to="none",
