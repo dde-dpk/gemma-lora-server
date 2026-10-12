@@ -34,7 +34,7 @@ LANG_TARGET_MODULES = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_
 def parse_args():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--model-id", default="google/gemma-3-4b-it")
-    p.add_argument("--dataset", required=True, help="Path to chat-format JSONL (see data/sample.jsonl).")
+    p.add_argument("--dataset", required=True, help="Path to chat-format JSONL (see data/sample_nono.jsonl).")
     p.add_argument("--output-dir", required=True, help="Where to save the adapter.")
     p.add_argument("--hf-token", default=None, help="HF token for the gated Gemma weights (or set HF_TOKEN env).")
 
@@ -42,7 +42,7 @@ def parse_args():
     p.add_argument("--lora-alpha", type=int, default=64)
     p.add_argument("--lora-dropout", type=float, default=0.05)
 
-    p.add_argument("--epochs", type=float, default=3.0)
+    p.add_argument("--epochs", type=float, default=5.0)
     p.add_argument("--batch-size", type=int, default=1)
     p.add_argument("--grad-accum", type=int, default=8)
     p.add_argument("--lr", type=float, default=2e-4)
